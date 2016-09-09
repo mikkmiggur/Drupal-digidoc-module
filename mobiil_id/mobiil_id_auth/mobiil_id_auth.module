@@ -198,7 +198,7 @@ function _mobiil_id_auth_handle_request($form, &$form_state) {
   unset($wrapper['#attributes']['class'][$index]);
 
   // Honeypot. Hidden form fields must be empty.
-  if (!empty($values['name']) || !empty($values['pass'])) {
+  if (!empty($values['name'])) {
     form_error($form['name'], t('Error on login form.'));
     return $wrapper;
   }
