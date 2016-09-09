@@ -197,6 +197,16 @@ function _mobiil_id_auth_handle_request($form, &$form_state) {
   $index = array_search('element-hidden', $wrapper['#attributes']['class']);
   unset($wrapper['#attributes']['class'][$index]);
 
+  // Honeypot. Hidden form fields must be empty.
+  if (!empty($values['name']) || !empty($values['pass'])) {
+    form_error($form['name'], t('Error on login form.'));
+    return $wrapper;
+  }
+  if (!empty($values['pass'])) {
+    form_error($form['pass'], t('Error on login form.'));
+    return $wrapper;
+  }
+
   // Basic validation - cannot be empty.
   if (empty($values['mobiil_id_phone_number'])) {
     form_error($wrapper['mobiil_id_phone_number'], t('Phone number field must be filled.'));
